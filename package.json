@@ -2,12 +2,14 @@
   "name": "collision-detection",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "coverage": "jest --coverage",
     "start": "parcel index.html",
     "test": "jest --verbose",
-    "watch": "jest --watch"
+    "watch": "jest --watch",
+    "build": "parcel build index.html",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,7 @@
     "parcel": "^2.13.3"
   },
   "dependencies": {
-    "collision-detection": "file:"
+    "collision-detection": "file:",
+    "gh-pages": "^6.3.0"
   }
 }
