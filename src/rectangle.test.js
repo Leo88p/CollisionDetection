@@ -1,4 +1,4 @@
-import Rectangle from './rectangle'
+import {Rectangle, Circle, Polygon} from './rectangle'
 
 describe('Rectangle getters', () => {
     it('should calculate borders correctly', () => {
@@ -116,5 +116,46 @@ describe('Rectangle.intersects()', () => {
     it('should returns false if rects are not intersected', () => {
         const otherRect = new Rectangle(10, 10, 1, 1)
         expect(rect.intersects(otherRect)).toBeFalsy()
+    })
+
+    it('should revert y speed when out of canvas', () => {
+        const canvas = {width: 800, height: 600}
+        rect = new Rectangle(0, 599, 3, 2)
+        rect.setSpeed(2,2)
+        rect.insideCanvas(canvas)
+        expect(rect.speed.y).toBe(-2)
+    })
+
+    it('should revert x speed when out of canvas', () => {
+        const canvas = {width: 800, height: 600}
+        rect = new Rectangle(799, 0, 3, 2)
+        rect.setSpeed(3,2)
+        rect.insideCanvas(canvas)
+        expect(rect.speed.x).toBe(-3)
+    })
+
+    it('should reduce health on taking damage', () => {
+        rect.takeDamage()
+        expect(rect.life).toBe(2)
+    })
+})
+describe('Circle.intersects()', () => {
+    let circle
+    beforeEach(()=>{
+        circle = new Circle(3,3,2)
+    })
+    it('shoud revert speed when out of canvas',()=>{
+        const canvas = {width: 800, height: 600}
+        circle.x = 799
+        circle.setSpeed(3,4)
+        circle.insideCanvas(canvas)
+        expect(circle.speed.x).toBe(-3)
+        circle.x = 5
+        circle.y = 599
+        circle.insideCanvas(canvas)
+        expect(circle.speed.y).toBe(-4)
+    })
+    it('should return true if rect and circle intersects',()=>{
+        
     })
 })
